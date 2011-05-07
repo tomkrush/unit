@@ -6,6 +6,12 @@ class UnitTestCase
 	private $time_start;
 	private $last_time;
 	
+	function __get($key)
+	{
+		$CI =& get_instance();
+		return $CI->$key;
+	}	
+	
 	public function setup() {}
 	
 	public function teardown() {}
