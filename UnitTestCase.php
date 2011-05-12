@@ -101,9 +101,9 @@ class UnitTestCase
 		$backtrace = debug_backtrace();
 		$message = 'Case: '.$backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
 		
-		$message = $result ? $message : $message.'(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';
+		$message = !$result ? $message : $message.'(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';
 		
-		return $this->assertion($result, $message);
+		return $this->assertion(!$result, $message);
 	}
 	
 	
