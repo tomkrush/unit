@@ -56,6 +56,7 @@ class UnitTestSuite
 			font-size: 20px;
 			padding: 12px;
 			color: white;
+			text-shadow: 0 -1px 0 rgba(0,0,0,.8);
 		}
 		
 		.navigation {
