@@ -77,9 +77,7 @@ class UnitTestCase
 		}
 		
 		if ( is_array($value) )
-		{
-			$html = '<style>.top{position:relative;}.wrapper{position:absolute;display: none;} .top:hover .wrapper {display: block;background:#ddd;border:1px solid black; padding: 10px;}</style>';
-			
+		{			
 			$html .= '<span class="top"><span style="color: blue">Array</span>';
 			
 			$html .= '<span class="wrapper"><pre>'.print_r($value, TRUE).'</pre></span>';
@@ -111,7 +109,6 @@ class UnitTestCase
 	{		
 		$mode = '';
 		$count = 0;
-		$color = 'green';
 		
 		if ( $pass )
 		{
@@ -121,11 +118,10 @@ class UnitTestCase
 		else
 		{
 			$mode = 'fail';
-			$color = 'red';
 			$count = $this->failed;
 		}
 		
-		$message = '<div style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px dotted #ccc"><strong style="color:'.$color.'">'.strtoupper($mode)."</strong>: {$message} <small>(<strong>{$count}</strong> of <strong>{$this->total}</strong> tests run so far have {$mode}ed) <span style=\"color: #ccc\">".$this->last_time."</span></small></div>";
+		$message = '<div class="row '.$mode.'"><strong class="title">'.$mode."</strong>: {$message} <small>(<strong>{$count}</strong> of <strong>{$this->total}</strong> tests run so far have {$mode}ed) <span class=\"time\">".$this->last_time."</span></small></div>";
 		
 		echo $message;
 		$this->time_start = _unit_micro_time();
