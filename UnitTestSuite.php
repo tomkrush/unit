@@ -16,7 +16,7 @@ class UnitTestSuite
 		echo '<head>';
 		echo '<meta charset="utf-8"/>';
 		echo '<title>Unit Tests</title>';
-		echo '<script src="http://krypton.dev/assets/admin/js/jquery-1.5.2.min.js"></script>';
+		echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>';
 		echo '<script>
 
 		</script>';

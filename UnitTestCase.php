@@ -1,6 +1,6 @@
 <?php
 
-class UnitTestCase
+abstract class UnitTestCase
 {
 	private $passed, $failed, $total;
 	private $time_start;
@@ -144,7 +144,7 @@ class UnitTestCase
 		}
 	}
 	
-	public static function is_test($value)
+	protected static function is_test($value)
 	{
 		return substr($value, 0, 4) == 'test';
 	}
