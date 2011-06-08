@@ -12,6 +12,21 @@ abstract class UnitTestCase
 		return $CI->$key;
 	}	
 	
+	public function passed()
+	{
+		return $this->passed;
+	}
+	
+	public function failed()
+	{
+		return $this->failed ? $this->failed : '0';
+	}
+	
+	public function total()
+	{
+		return $this->total;
+	}
+	
 	public function setup() {}
 	
 	public function teardown() {}

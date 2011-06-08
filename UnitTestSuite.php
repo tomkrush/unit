@@ -11,12 +11,58 @@ class UnitTestSuite
 	
 	public function run()
 	{	
+		$passed = 0;
+		$failed = 0;
+		$total = 0;
+		
+		ob_start();
+		
+		foreach($this->cases as $testCase)
+		{
+			ob_start();
+			$time_start = _unit_micro_time();			
+
+			$testCaseObject = new $testCase;
+			@$testCaseObject->run();
+
+			$time_stop = _unit_micro_time();
+			$time_overall = bcsub($time_stop, $time_start, 6);
+			$contents = ob_get_contents();
+			ob_end_clean();
+
+			$passed += $testCaseObject->passed();
+			$failed += $testCaseObject->failed();
+			$total += $testCaseObject->total();
+
+			$has_fails = $testCaseObject->failed() ? 'has_fails' : '';
+			$has_passes = $testCaseObject->passed() ? 'has_passes' : '';
+			
+
+			echo '<div class="file '.$has_fails.' '.$has_passes.'">';
+			echo '<h3>'.$testCase.'</h3>';
+
+			echo '<ul class="results">';
+			echo '<li class="passed">passed: <strong>'.$testCaseObject->passed().'</strong></li>';
+			echo '<li class="failed">failed: <strong>'.$testCaseObject->failed().'</strong></li>';
+			echo '<li class="total">total: <strong>'.$testCaseObject->total().'</strong></li>';
+			echo '</ul>';
+			echo '<div class="clear"></div>';
+			echo $contents;
+
+			echo "<div class=\"overall\"><strong>$time_overall</strong> Seconds</div>";
+			echo '</div>';
+		}
+		
+		$tests = ob_get_contents();
+		ob_end_clean();
+		
+				
+		
 		echo '<!DOCTYPE html>';
 		echo '<html>';
 		echo '<head>';
 		echo '<meta charset="utf-8"/>';
 		echo '<title>Unit Tests</title>';
-		echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>';
 		echo '<script>
 
 		</script>';
@@ -30,6 +76,10 @@ class UnitTestSuite
 			font-family: 14px;
 			line-height: 1;
 			font-family: "Helvetica-Neue", Helvetica, Arial, Sans-Serif;
+		}
+		
+		.clear {
+			clear: both;
 		}
 		
 		#header {
@@ -134,6 +184,7 @@ class UnitTestSuite
 			padding: 10px 7px;
 
 			text-shadow: 0 1px 0 white; 
+			float: left;
 		}
 		
 		.wrapper {
@@ -184,6 +235,30 @@ class UnitTestSuite
 			padding: 0 7px;
 		}
 		
+		.results {
+			list-style: none;
+			margin: 0;
+			padding: 10px;
+			float: left;
+		}
+		
+		.results li {
+			display: inline-block;
+			margin-right: 10px;
+		}
+		
+		.results strong {
+			font-size: 20px;
+		}
+		
+		.results .passed strong {
+			color: green;
+		}
+		
+		.results .failed strong {
+			color: red;
+		}
+		
 		';
 		echo '</style>';
 		echo '</head>';
@@ -193,32 +268,44 @@ class UnitTestSuite
 			<h1>Unit Tests</h1>
 			<!--<ul class="navigation left">
 				<li><a class="top" href="#">choose tests</a></li>
-			</ul>
-			<ul class="navigation right">
-				<li><a class="top" href="#">refresh</a></li>
 			</ul>-->
+			<ul class="navigation right">
+				<li><a class="top failed" href="#"><strong>'.$failed.'</strong> failed</a></li>
+				<li><a class="top passed" href="#"><strong>'.$passed.'</strong> passed</a></li>
+				<li><a class="top total" href="#"><strong>'.$total.'</strong> total</a></li>
+			</ul>
 		</div>
 		<div id="container">
 		';
-
 		
-		foreach($this->cases as $testCase)
-		{
-			echo '<div class="file">';
-			echo '<h3>'.$testCase.'</h3>';
+		echo '</ul>';
 
-			$time_start = _unit_micro_time();			
-
-			$testCaseObject = new $testCase;
-			@$testCaseObject->run();
-
-			$time_stop = _unit_micro_time();
-			$time_overall = bcsub($time_stop, $time_start, 6);
-			echo "<div class=\"overall\"><strong>$time_overall</strong> Seconds</div>";
-			echo '</div>';
-		}
+		echo $tests;
 		
 		echo '</div>';
+		echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>';
+		echo '<script>
+		
+		$(".navigation.right .passed").click(function() {
+			$(".file.has_passes, .file .row.pass").show();
+			$(".file.has_fails, .file .row.fail").hide();
+			$(".file .results").hide();
+		});
+
+		$(".navigation.right .failed").click(function() {
+			$(".file.has_passes, .file .row.pass").hide();
+			$(".file.has_fails, .file .row.fail").show();
+			$(".file .results").hide();
+		});
+
+		$(".navigation.right .total").click(function() {
+			$(".file.has_passes, .file .row.pass").show();
+			$(".file.has_fails, .file .row.fail").show();
+			$(".file .results").show();
+		});
+		
+		</script>';
+		
 		echo '</body>';
 		echo '</html>';
 	}
