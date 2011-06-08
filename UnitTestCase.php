@@ -59,7 +59,7 @@ abstract class UnitTestCase
 	{
 		$this->stop_timer();
 
-		$result = $expected == $actual;
+		$result = $expected === $actual;
 		
 		$backtrace = debug_backtrace();
 		$message = 'Case: '.$backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
