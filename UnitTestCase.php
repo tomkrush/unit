@@ -136,7 +136,7 @@ abstract class UnitTestCase
 			$count = $this->failed;
 		}
 		
-		$message = '<div class="row '.$mode.'"><strong class="title">'.$mode."</strong>: {$message} <small>(<strong>{$count}</strong> of <strong>{$this->total}</strong> tests run so far have {$mode}ed) <span class=\"time\">".$this->last_time."</span></small></div>";
+		$message = '<div class="row '.$mode.'"><strong class="title">'.$mode."</strong>: {$message} <small> <span class=\"time\">".$this->last_time."</span></small></div>";
 		
 		echo $message;
 		$this->time_start = _unit_micro_time();
