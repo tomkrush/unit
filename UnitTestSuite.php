@@ -268,13 +268,17 @@ class UnitTestSuite
 			<h1>Unit Tests</h1>
 			<!--<ul class="navigation left">
 				<li><a class="top" href="#">choose tests</a></li>
-			</ul>-->
+			</ul>-->';
+		if ( $failed ) {
+		echo '
 			<ul class="navigation right">
 				<li><a class="top failed" href="#"><strong>'.$failed.'</strong> failed</a></li>
 				<li><a class="top passed" href="#"><strong>'.$passed.'</strong> passed</a></li>
 				<li><a class="top total" href="#"><strong>'.$total.'</strong> total</a></li>
-			</ul>
-		</div>
+			</ul>';
+		}
+			
+		echo '</div>
 		<div id="container">
 		';
 		
