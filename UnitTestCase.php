@@ -79,9 +79,21 @@ abstract class UnitTestCase
 		$backtrace = debug_backtrace();
 		$message = 'Case: '.$backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
 		
-		$message = $result ? $message : $message.'(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';
+		$message = $result ? $message : $message.$this->expected($expected, $actual);
 		
 		return $this->assertion($result, $message);
+	}
+	
+	protected function expected($expected, $actual)
+	{
+		if ( is_string($expected) && is_string($actual) )
+		{
+			return '(String Diff:'.$this->htmlDiff($expected, $actual).')';
+		}
+		else
+		{
+			return '(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';			
+		}
 	}
 	
 	private function value($value)
@@ -95,7 +107,7 @@ abstract class UnitTestCase
 		{			
 			$html .= '<span class="top"><span style="color: blue">Array</span>';
 			
-			$html .= '<span class="wrapper"><pre>'.print_r($value, TRUE).'</pre></span>';
+			$html .= '<span class="wrapper">'.print_r($value, TRUE).'</span>';
 			
 			$html .= '</span>';
 			
@@ -114,9 +126,40 @@ abstract class UnitTestCase
 		$backtrace = debug_backtrace();
 		$message = 'Case: '.$backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
 		
-		$message = !$result ? $message : $message.'(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';
+		$message = !$result ? $message : $message.$this->expected($expected, $actual);
 		
 		return $this->assertion(!$result, $message);
+	}
+
+	protected function diff($old, $new){ 
+	        foreach($old as $oindex => $ovalue){ 
+	                $nkeys = array_keys($new, $ovalue); 
+	                foreach($nkeys as $nindex){ 
+	                        $matrix[$oindex][$nindex] = isset($matrix[$oindex - 1][$nindex - 1]) ? 
+	                                $matrix[$oindex - 1][$nindex - 1] + 1 : 1; 
+	                        if($matrix[$oindex][$nindex] > $maxlen){ 
+	                                $maxlen = $matrix[$oindex][$nindex]; 
+	                                $omax = $oindex + 1 - $maxlen; 
+	                                $nmax = $nindex + 1 - $maxlen; 
+	                        } 
+	                }        
+	        } 
+	        if($maxlen == 0) return array(array('d'=>$old, 'i'=>$new)); 
+	        return array_merge( 
+	                $this->diff(array_slice($old, 0, $omax), array_slice($new, 0, $nmax)), 
+	                array_slice($new, $nmax, $maxlen), 
+	                $this->diff(array_slice($old, $omax + $maxlen), array_slice($new, $nmax + $maxlen))); 
+	} 
+
+	protected function htmlDiff($old, $new){ 
+	        $diff = $this->diff(explode(' ', $old), explode(' ', $new)); 
+	        foreach($diff as $k){ 
+	                if(is_array($k)) 
+	                        $ret .= (!empty($k['d'])?"<span class=\"delete\">".implode(' ',$k['d'])."</span> ":''). 
+	                                (!empty($k['i'])?"<span class=\"add\">".implode(' ',$k['i'])."</span> ":''); 
+	                else $ret .= $k . ' '; 
+	        } 
+	        return $ret; 
 	}
 	
 	

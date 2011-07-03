@@ -205,6 +205,14 @@ class UnitTestSuite
 			text-shadow: 0 1px 0 white;
 		}
 		
+		.row .delete {
+			color: red;
+		}
+		
+		.row .add {
+			color: green;
+		}
+		
 		.file {
 			padding: 10px 0;
 			margin-bottom: 10px;
