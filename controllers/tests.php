@@ -13,41 +13,47 @@ class Tests extends CI_Controller
 	{
 		$this->load->helper('directory');
 		
-		$suite = new UnitTestSuite;
-
-		$this->load->config('unit');
+		// $suite = new UnitTestSuite;
+		// 
+		// $this->load->config('unit');
+		// 
+		// $paths = $this->config->item('test_paths');
+		// 
+		// foreach($paths as $path)
+		// {
+		// 	$path = APPPATH.$path.'/';
+		// 	$tests_path = $path.'order.php';
+		// 	
+		// 	if (file_exists($tests_path))
+		// 	{
+		// 		require $tests_path;
+		// 	}
+		// 	else
+		// 	{
+		// 		$order = directory_map($path);
+		// 	}
+		// 			
+		// 	if ( is_array($order) )
+		// 	{
+		// 		foreach($order as $file)
+		// 		{
+		// 			if ($file == 'tests.php') continue;
+		// 
+		// 			$class = str_replace('.php', '', $file);
+		// 			
+		// 			require_once($path.$class.'.php');
+		// 
+		// 			$suite->addTestCase($class);
+		// 		}
+		// 	}
+		// }
+		// 
+		// $suite->run();
 		
-		$paths = $this->config->item('test_paths');
-
-		foreach($paths as $path)
-		{
-			$path = APPPATH.$path.'/';
-			$tests_path = $path.'order.php';
-			
-			if (file_exists($tests_path))
-			{
-				require $tests_path;
-			}
-			else
-			{
-				$order = directory_map($path);
-			}
-					
-			if ( is_array($order) )
-			{
-				foreach($order as $file)
-				{
-					if ($file == 'tests.php') continue;
-
-					$class = str_replace('.php', '', $file);
-					
-					require_once($path.$class.'.php');
-
-					$suite->addTestCase($class);
-				}
-			}
-		}
-
-		$suite->run();
+		$this->load->vars('failed', '0');
+		$this->load->vars('passed', '0');
+		$this->load->vars('total', '0');
+		
+		$this->load->view('tests/index');
 	}
 }
