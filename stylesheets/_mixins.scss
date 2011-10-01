@@ -1,0 +1,138 @@
+@mixin position($top: false, $left: false, $bottom: false, $right: false) {
+	position: absolute;
+	@if type_of($top) == number {
+		top: $top;
+	}
+	@if type_of($left) == number {
+		left: $left;
+	}
+	@if type_of($bottom) == number {
+		bottom: $bottom;
+	}
+	@if type_of($right) == number {
+		right: $right;
+	}
+}
+
+@mixin user-select($value) {
+	-moz-user-select: $value; 
+	-webkit-user-select: $value; 
+	user-select: $value;
+}
+
+@mixin box-sizing($value) {
+	-webkit-box-sizing: $value;
+	-ms-box-sizing: $value;
+	-moz-box-sizing: $value;
+	box-sizing: $value;
+}
+
+@mixin clearfix()
+{
+	&:after {
+		clear: both;
+		content: ".";
+		display: block;
+		height: 0;
+		visibility: hidden;
+		font-size: 0;
+	}
+}
+
+@mixin border-radius($radius: false, $topleft: false, $topright: false, $bottomright: false, $bottomleft: false) {
+	@if type_of($radius) == number {
+		-webkit-border-radius: $radius;
+		-moz-border-radius: $radius;
+		border-radius: $radius;
+	}
+	@if type_of($topleft) == number {
+		-webkit-border-top-left-radius: $topleft;
+		-moz-border-radius-topleft: $topleft;
+		border-top-left-radius: $topleft;
+	}
+	@if type_of($topright) == number {
+		-webkit-border-top-right-radius: $topright;
+		-moz-border-radius-topright: $topright;
+		border-top-right-radius: $topright;
+	}
+	@if type_of($bottomright) == number {
+		-webkit-border-bottom-right-radius: $bottomright;
+		-moz-border-radius-bottomright: $bottomright;
+		border-bottom-right-radius: $bottomright;
+	}
+	@if type_of($bottomleft) == number {
+		-webkit-border-bottom-left-radius: $bottomleft;
+		-moz-border-radius-bottomleft: $bottomleft;
+		border-bottom-left-radius: $bottomleft;
+	}
+}
+
+@mixin box-shadow($x, $y, $blur, $color) {
+	-webkit-box-shadow: $x $y $blur $color;
+	-moz-box-shadow: $x $y $blur $color;
+	box-shadow: $x $y $blur $color;
+}
+
+@mixin rounded($radius: 10px, $topLeft: true, $topRight: true, $bottomLeft: true, $bottomRight: true) {
+	@if $topLeft == true and $topRight == true and $bottomLeft == true and $bottomRight == true { 
+		border-radius: $radius;
+	} @else {
+		@if $topLeft == true {
+			border-top-left-radius: $radius;
+		}
+		@else {
+			border-top-left-radius: 0;
+		}
+		
+		@if $topRight == true {
+			border-top-right-radius: $radius;
+		}
+		@else {
+			border-top-right-radius: 0;
+		}
+		
+		@if $bottomLeft == true {
+			border-bottom-left-radius: $radius;
+		}
+		@else {
+			border-bottom-left-radius: 0;
+		}
+		
+		@if $bottomRight == true {
+			border-bottom-right-radius: $radius;
+		}
+		@else {
+			border-bottom-right-radius: 0;
+		}
+	}
+}
+
+@mixin background-clip($clip)
+{
+	-webkit-background-clip: $clip;
+	-moz-background-clip: $clip;
+}
+
+@mixin radial($firstStopColor, $secondStopColor, $origin: center, $firstStopPosition: 0%, $secondStopPosition: 100%, $shape: ellipse, $size: cover)
+{	
+	$kind: $shape $size;
+	$firstStop: $firstStopColor $firstStopPosition;
+	$secondStop: $secondStopColor $secondStopPosition;
+	
+	background-color: $firstStopColor;
+	background-image: -moz-radial-gradient($origin, $kind, $firstStop, $secondStop);
+	background-image: -webkit-radial-gradient($origin, $kind, $firstStop, $secondStop);
+	background-image: -o-radial-gradient($origin, $kind, $firstStop, $secondStop);
+	background-image: -ms-radial-gradient($origin, $kind, $firstStop, $secondStop);
+	background-image: radial-gradient($origin, $kind, $firstStop, $secondStop)
+}
+
+@mixin gradient($first, $last) {
+	background: $first; /* Old browsers */
+	background: -moz-linear-gradient(top, $first 0%, $last 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$first), color-stop(100%,$last)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, $first 0%,$last 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, $first 0%,$last 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, $first 0%,$last 100%); /* IE10+ */
+	background: linear-gradient(top, $first 0%,$last 100%); /* W3C */
+}
