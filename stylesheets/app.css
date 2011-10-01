@@ -47,6 +47,8 @@ body {
       font-size: 0; }
     .header ul.left {
       left: 10px; }
+      .header ul.left li {
+        margin-right: 10px; }
     .header ul.right {
       right: 10px; }
     .header ul li {

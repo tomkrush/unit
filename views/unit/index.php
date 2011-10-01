@@ -16,7 +16,7 @@
 			</ul>			
 			<h1>Unit Tests</h1>
 			<ul class="navigation right">
-				<li><a class="top button" href="#">Settings</a></li>
+<!--				<li><a class="top button" href="#">Settings</a></li>-->
 			</ul>
 		</div>
 		<div class="cases_wrapper">

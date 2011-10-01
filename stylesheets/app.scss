@@ -38,6 +38,10 @@ body {
 		
 		&.left {
 			left: 10px;
+			
+			li {
+				margin-right: 10px;
+			}
 		}
 		
 		&.right {
