@@ -8,10 +8,35 @@ $(function() {
 
 	resize_box();
 	$(window).resize(resize_box);
-
+	
+	var cases_list_html = '';
+	
+	$('.cases .case').each(function() {
+		var text = $(this).attr('rel');
+		var id = text + 'Field';
+		cases_list_html += '<li><input type="checkbox" id="'+id+'"/><label for="'+id+'">'+text+'</label></li>';
+	});
+	
+	$('.filter .popover .list').html(cases_list_html);
+	
+	$('.filter .popover .list li').delegate('input[type=checkbox]', 'change', function() {
+		var li = $(this).parent();
+		
+		var rel = $('label', li).text();
+		var the_case = $('.cases .case[rel='+rel+']');
+			
+		if ( $(this).attr('checked') )
+		{
+			the_case.hide();
+		}
+		else {
+			the_case.show();
+		}
+	});
+	
 	$('.cases_wrapper').scroll(function() {
-		var scrollOffset = $('.cases_wrapper').scrollTop(); 
-								
+		var scrollOffset = $('.cases_wrapper').scrollTop();
+										
 		$('.case').each(function() {
 			var position = $(this).position().top + $(this).outerHeight();
 						

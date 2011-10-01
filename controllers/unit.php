@@ -34,6 +34,14 @@ class Unit extends CI_Controller
 		$this->load->vars('cases', value_for_key('cases', $suite->results));
 		$this->load->view('unit/index');
 	}
+
+	public function images($file)
+	{
+		$this->load->helper('file');
+		$path = APPPATH.'third_party/unit/images/'.$file;
+		$this->output->set_content_type(get_mime_by_extension($path));
+		$this->output->set_output(file_get_contents($path));	
+	}
 	
 	public function stylesheets($file)
 	{
