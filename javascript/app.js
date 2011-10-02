@@ -14,7 +14,10 @@ $(function() {
 	$('.cases .case').each(function() {
 		var text = $(this).attr('rel');
 		var id = text + 'Field';
-		cases_list_html += '<li><input type="checkbox" id="'+id+'"/><label for="'+id+'">'+text+'</label></li>';
+		var passed = $(this).data('passed');
+		var failed = $(this).data('failed');
+		
+		cases_list_html += '<li><input type="checkbox" checked="checked" id="'+id+'"/><label for="'+id+'">'+text+'</label><div class="status"><span class="passed">'+passed+'</span><span class="failed">'+failed+'</span></div></li>';
 	});
 	
 	$('.filter .popover .list').html(cases_list_html);
@@ -31,11 +34,22 @@ $(function() {
 			
 		if ( $(this).attr('checked') )
 		{
-			the_case.hide();
-		}
-		else {
 			the_case.show();
 		}
+		else {
+			the_case.hide();
+		}
+		
+		var passed = 0;
+		var failed = 0;
+		
+		$('.cases .case:visible').each(function() {		
+			passed += parseInt($(this).data('passed'));			
+			failed += parseInt($(this).data('failed'));
+		});
+		
+		$('.footer.toolbar .passed span').text(passed);
+		$('.footer.toolbar .failed span').text(failed);
 	});
 	
 	$('.cases_wrapper').scroll(function() {

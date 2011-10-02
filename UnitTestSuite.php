@@ -43,8 +43,8 @@ class UnitTestSuite
 			$this->results['cases'][] = array(
 				'name' => $testCase,
 				'execution_time' => $time_overall,
-				'total_passed' => $passed,
-				'total_failed' => $failed,
+				'total_passed' => $testCaseObject->passed(),
+				'total_failed' => $testCaseObject->failed(),
 				'assertions' => $testCaseObject->assertions
 			);
 		}

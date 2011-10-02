@@ -15,7 +15,7 @@
 		<div class="cases_wrapper">
 			<div class="cases">
 				<?php foreach($cases as $case): ?>
-					<div class="case" rel="<?=$case['name']?>">
+					<div class="case" rel="<?=$case['name']?>" data-passed="<?=$case['total_passed']?>" data-failed="<?=$case['total_failed']?>">
 						<h3><span><?=$case['name']?></span></h3>
 						<?php foreach($case['assertions'] as $assertion): ?>
 							<div class="assertion <?=$assertion['pass']?>">
@@ -29,8 +29,8 @@
 		</div>
 		<div class="footer toolbar">
 			<ul class="navigation left">
-				<li><a class="top button passed" href="#"><?=$passed?> Passed</a></li>
-				<li><a class="top button failed" href="#"><?=$failed?> Failed</a></li>
+				<li><a class="top button passed" href="#"><span><?=$passed?></span> Passed</a></li>
+				<li><a class="top button failed" href="#"><span><?=$failed?></span> Failed</a></li>
 			</ul>	
 			<ul class="navigation right">
 				<li class="filter"><a class="top button" href="#">Filter</a>
