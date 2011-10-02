@@ -24,6 +24,7 @@ body {
 		width: 320px;
 		border: 2px solid #7A86A1;
 		@include border-radius(3px);
+		display: none;
 		
 		
 		&:after {

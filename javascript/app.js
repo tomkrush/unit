@@ -19,6 +19,10 @@ $(function() {
 	
 	$('.filter .popover .list').html(cases_list_html);
 	
+	$('.filter .button').click(function() {
+		$('.filter .popover').fadeToggle('fast');
+	});
+	
 	$('.filter .popover .list li').delegate('input[type=checkbox]', 'change', function() {
 		var li = $(this).parent();
 		
