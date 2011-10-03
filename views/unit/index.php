@@ -21,6 +21,7 @@
 							<div class="assertion <?=$assertion['pass']?>">
 								<div class="<?=$assertion['pass']?>"><?=$assertion['pass']?></div>
 								<div class="message"><?=$assertion['message']?></div>
+								<div class="time"><?=$assertion['execution_time']?></div>
 							</div>
 						<?php endforeach; ?>
 					</div>
