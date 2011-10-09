@@ -14,7 +14,7 @@
 		</div>
 		<div class="cases_wrapper">
 			<div class="cases">
-				<?php foreach($cases as $case): ?>
+				<?php if ( is_array($cases) ): foreach($cases as $case): ?>
 					<div class="case" rel="<?=$case['name']?>" data-passed="<?=$case['total_passed']?>" data-failed="<?=$case['total_failed']?>">
 						<h3><span><?=$case['name']?></span></h3>
 						<?php foreach($case['assertions'] as $assertion): ?>
@@ -25,7 +25,7 @@
 							</div>
 						<?php endforeach; ?>
 					</div>
-				<?php endforeach; ?>
+				<?php endforeach; endif; ?>
 			</div>
 		</div>
 		<div class="footer toolbar">
