@@ -25,13 +25,19 @@ class Unit extends CI_Controller
 
 		$suite->run();
 		
-		$failed = value_for_key('total_failed', $suite->results, '0');
+		$failed = array_key_exists('total_failed', $suite->results) ? $suite->results['total_failed'] : 0;
 		$failed = $failed ? $failed : '0';
+
 		
+		$passed = array_key_exists('total_passed', $suite->results) ? $suite->results['total_passed'] : 0;
+		$passed = $passed ? $passed : '0';
+
+		$cases = array_key_exists('cases', $suite->results) ? $suite->results['cases'] : 0;
+		$cases = $cases ? $cases : '0';		
 		
-		$this->load->vars('passed', value_for_key('total_passed', $suite->results, '0'));	
+		$this->load->vars('passed', $passed);							
 		$this->load->vars('failed', $failed);							
-		$this->load->vars('cases', value_for_key('cases', $suite->results));
+		$this->load->vars('cases', $cases);							
 		$this->load->view('unit/index');
 	}
 
