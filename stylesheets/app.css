@@ -4,22 +4,22 @@ body {
   margin: 0;
   padding: 0 10px; }
 
-.header {
+body > .header {
   padding: 10px 0; }
-  .header:after {
+  body > .header:after {
     clear: both;
     content: ".";
     display: block;
     height: 0;
     visibility: hidden;
     font-size: 0; }
-  .header h1 {
+  body > .header h1 {
     float: left;
     line-height: 1;
     font-size: 30px;
     margin: 3px 0;
     padding: 0; }
-  .header .tools {
+  body > .header .tools {
     float: right; }
 
 .stats {
@@ -72,14 +72,37 @@ body {
   -moz-background-clip: padding-box;
   -o-background-clip: padding-box;
   background-clip: padding-box; }
-  .case h3 {
-    line-height: 1;
-    margin: 0;
-    padding: 0;
+  .case .header {
     background: #3B392D;
     color: #fff;
-    font-size: 12px;
-    padding: 10px; }
+    margin: 0; }
+    .case .header:after {
+      clear: both;
+      content: ".";
+      display: block;
+      height: 0;
+      visibility: hidden;
+      font-size: 0; }
+    .case .header h3 {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-size: 12px;
+      padding: 10px;
+      float: left; }
+    .case .header .refresh {
+      float: right;
+      font-size: 12px;
+      color: white;
+      line-height: 1;
+      padding: 10px;
+      text-decoration: none;
+      width: 43px; }
+      .case .header .refresh:hover {
+        text-decoration: underline; }
+      .case .header .refresh.loading {
+        text-indent: -99999px;
+        background: url(../images/loading.gif) no-repeat center center; }
   .case .assertion {
     background: #f0efec;
     padding: 15px 10px;
@@ -124,7 +147,7 @@ body {
   .case .buffer {
     display: none;
     font-family: courier;
-    background: #000;
+    background: #222;
     color: #28FE14;
     padding: 5px;
     text-shadow: none;

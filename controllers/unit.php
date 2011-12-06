@@ -13,9 +13,7 @@ class Unit extends CI_Controller
 	{
 		$this->load->helper('unit');
 		$this->load->helper('form');
-		
-		// $this->output->enable_profiler(TRUE);
-		
+				
 		$suite = new UnitTestSuite;
 
 		foreach(unit_test_cases() as $test_case)
@@ -69,6 +67,32 @@ class Unit extends CI_Controller
 	{
 		$this->output->set_content_type('text/javascript');		
 		$this->output->set_output(file_get_contents(APPPATH.'third_party/unit/javascript/'.$file));	
+	}
+	
+	public function api_refresh()
+	{
+		$this->load->helper('unit');
+		$case = $this->input->get('case');
+				
+		$suite = new UnitTestSuite;
+
+		foreach(unit_test_cases() as $test_case)
+		{			
+			if ( $case == $test_case['class'] ) {
+				require_once($test_case['path']);
+				$suite->addTestCase($test_case['class']);
+				break;
+			}
+		}
+
+		$suite->run();
+	
+		$cases = array_key_exists('cases', $suite->results) ? $suite->results['cases'] : 0;
+		$case = $cases ? $cases[0] : array();	
+
+
+		$this->load->vars('case', $case);	
+		$this->load->view('unit/case');
 	}
 	
 	public function api_all_cases()

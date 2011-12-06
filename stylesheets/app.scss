@@ -11,7 +11,7 @@ body {
 	padding: 0 10px;
 }
 
-.header {
+body > .header {
 	@include clearfix();
 	padding: 10px 0;
 	
@@ -61,15 +61,39 @@ body {
 	overflow: hidden;
 	@include background-clip(padding-box);
 	
-	
-	h3 {
-		line-height: 1;
-		margin: 0;
-		padding: 0;
+	.header {
+		@include clearfix();
 		background: #3B392D;
 		color: #fff;
-		font-size: 12px;
-		padding: 10px;
+		margin: 0;
+		
+		h3 {
+			margin: 0;
+			padding: 0;
+			line-height: 1;
+			font-size: 12px;
+			padding: 10px;
+			float: left;
+		}
+		
+		.refresh {
+			float: right;
+			font-size: 12px;
+			color: white;
+			line-height: 1;
+			padding: 10px;
+			text-decoration: none;
+			width: 43px;
+			
+			&:hover {
+				text-decoration: underline;
+			}
+			
+			&.loading {
+				text-indent: -99999px;
+				background: url(../images/loading.gif) no-repeat center center;
+			}
+		}	
 	}
 	
 	.assertion {
@@ -129,7 +153,7 @@ body {
 	
 		display: none;
 		font-family: courier;
-		background: #000;
+		background: #222;
 		color: #28FE14;
 		padding: 5px;
 		text-shadow: none;

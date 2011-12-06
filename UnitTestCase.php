@@ -79,19 +79,31 @@ abstract class UnitTestCase
 		echo 'expected:'.$this->value($expected)."\n";
 		echo 'actual:'.$this->value($actual)."\n";
 
+		$result = $expected == $actual;
+		
+		$backtrace = debug_backtrace();
+		$message = $backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
+		
+		$message = $result ? $message : $message;
+		
+		return $this->assertion($result, $message);
+	}
+	
+	public function assertSame($expected, $actual, $message)
+	{	
+		$this->stop_timer();
+		
+		echo 'expected:'.$this->value($expected)."\n";
+		echo 'actual:'.$this->value($actual)."\n";
+
 		$result = $expected === $actual;
 		
 		$backtrace = debug_backtrace();
 		$message = $backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
 		
-		$message = $result ? $message : $message.$this->expected($expected, $actual);
+		$message = $result ? $message : $message;
 		
 		return $this->assertion($result, $message);
-	}
-	
-	protected function expected($expected, $actual)
-	{
-		return '(Expected: '.$this->value($expected).' / Actual: '.$this->value($actual).')';			
 	}
 	
 	private function value($value)
@@ -105,7 +117,7 @@ abstract class UnitTestCase
 		{						
 			return print_r($value, TRUE);
 		}
-		
+
 		return $value;
 	}
 	
@@ -121,7 +133,7 @@ abstract class UnitTestCase
 		$backtrace = debug_backtrace();
 		$message = $backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
 		
-		$message = !$result ? $message : $message.$this->expected($expected, $actual);
+		$message = !$result ? $message : $message;
 		
 		return $this->assertion(!$result, $message);
 	}
