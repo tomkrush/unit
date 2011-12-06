@@ -55,6 +55,8 @@ abstract class UnitTestCase
 	public function assertTrue($test, $message)
 	{	
 		$this->stop_timer();
+		
+		echo $this->value($test);
 
 		$backtrace = debug_backtrace();
 		$message = $backtrace[1]['function'].' "<strong>'.$message.'</strong>"';
@@ -65,6 +67,8 @@ abstract class UnitTestCase
 	public function assertFalse($test, $message)
 	{
 		$this->stop_timer();
+		
+		echo $this->value($test);
 		
 		$backtrace = debug_backtrace();
 		$message = $backtrace[1]['function'].' "<strong>'.$message.'</strong>"';

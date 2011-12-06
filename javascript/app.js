@@ -1,5 +1,5 @@
 $(function() {
-	$('.console').click(function() {
+	$('.console').live('click', function() {
 		$(this).parent().next('.buffer').slideToggle('fast');
 		return false;
 	});
@@ -13,7 +13,11 @@ $(function() {
 		$.ajax({
 			url:url,
 			success:function(data) {
-				$(test_case).replaceWith(data);
+				if ( data ) {
+					$(test_case).replaceWith(data);
+				} else {
+					alert('Nothing returned.');	
+				}
 			},
 			complete:function() {
 				$(refresh).removeClass('loading');
