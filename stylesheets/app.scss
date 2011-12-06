@@ -106,12 +106,41 @@ body {
 			}
 		}
 		
+		.console {
+			float: left;
+			position: relative;
+			color: blue;
+		}
+		
 		.message {
+			margin-right: 10px;
 			float: left;
 		}
 		
 		.time {
 			float: right;
+		}
+	}
+	
+	.buffer {	
+		&.show {
+			display: block;
+		}
+	
+		display: none;
+		font-family: courier;
+		background: #000;
+		color: #28FE14;
+		padding: 5px;
+		text-shadow: none;
+		overflow: auto;
+		
+		line-height: 1.4;
+		font-size: 12px;
+		
+		pre {
+			margin: 0;
+			padding: 0;
 		}
 	}
 }

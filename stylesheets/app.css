@@ -112,7 +112,27 @@ body {
         color: #40703c; }
       .case .assertion .status.fail {
         color: #85003f; }
+    .case .assertion .console {
+      float: left;
+      position: relative;
+      color: blue; }
     .case .assertion .message {
+      margin-right: 10px;
       float: left; }
     .case .assertion .time {
       float: right; }
+  .case .buffer {
+    display: none;
+    font-family: courier;
+    background: #000;
+    color: #28FE14;
+    padding: 5px;
+    text-shadow: none;
+    overflow: auto;
+    line-height: 1.4;
+    font-size: 12px; }
+    .case .buffer.show {
+      display: block; }
+    .case .buffer pre {
+      margin: 0;
+      padding: 0; }

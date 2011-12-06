@@ -53,7 +53,7 @@ abstract class UnitTestCase
 	}
 	
 	public function assertTrue($test, $message)
-	{
+	{	
 		$this->stop_timer();
 
 		$backtrace = debug_backtrace();
@@ -73,8 +73,11 @@ abstract class UnitTestCase
 	}
 	
 	public function assertEquals($expected, $actual, $message)
-	{
+	{	
 		$this->stop_timer();
+		
+		echo 'expected:'.$this->value($expected)."\n";
+		echo 'actual:'.$this->value($actual)."\n";
 
 		$result = $expected === $actual;
 		
@@ -99,22 +102,19 @@ abstract class UnitTestCase
 		}
 		
 		if ( is_array($value) )
-		{			
-			$html .= '<span class="top"><span style="color: blue">Array</span>';
-			
-			$html .= '<span class="wrapper">'.print_r($value, TRUE).'</span>';
-			
-			$html .= '</span>';
-			
-			return $html;
+		{						
+			return print_r($value, TRUE);
 		}
 		
-		return '<span style="color: #888">'.$value.'</span>';
+		return $value;
 	}
 	
 	public function assertNotEquals($expected, $actual, $message)
 	{
 		$this->stop_timer();
+		
+		echo 'expected:'.$this->value($expected)."\n";
+		echo 'actual:'.$this->value($actual)."\n";
 	
 		$result = $expected == $actual;
 
@@ -128,13 +128,29 @@ abstract class UnitTestCase
 	
 	protected function log($pass, $message)
 	{
+		$console = $this->end_console();
+		
 		$this->assertions[] = array(
 			'pass' => $pass ? 'pass' : 'fail',
 			'message' => $message,
-			'execution_time' => $this->last_time
+			'execution_time' => $this->last_time,
+			'console' => strlen($console) ? $console : FALSE
 		);
 		
 		$this->time_start = _unit_micro_time();
+		$this->start_console();
+	}
+	
+	protected function start_console()
+	{
+		ob_start();
+	}
+	
+	protected function end_console()
+	{
+		$console = ob_get_contents();
+		ob_end_clean();
+		return $console;
 	}
 	
 	public function run()
@@ -145,6 +161,7 @@ abstract class UnitTestCase
 		
 		foreach($array as $test)
 		{
+			$this->start_console();
 			$this->setup();
 			
 			$this->time_start = _unit_micro_time();
