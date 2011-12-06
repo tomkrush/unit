@@ -12,6 +12,7 @@ class Unit extends CI_Controller
 	public function index()
 	{
 		$this->load->helper('unit');
+		$this->load->helper('form');
 		
 		// $this->output->enable_profiler(TRUE);
 		
@@ -33,11 +34,20 @@ class Unit extends CI_Controller
 		$passed = $passed ? $passed : '0';
 
 		$cases = array_key_exists('cases', $suite->results) ? $suite->results['cases'] : 0;
-		$cases = $cases ? $cases : '0';		
+		$cases = $cases ? $cases : array();	
+		
+		$this->load->helper('unit');
+		
+		$all_cases = array();
+		foreach(unit_test_cases() as $case)
+		{
+			$all_cases[$case['class']] = $case['class'];
+		}
 		
 		$this->load->vars('passed', $passed);							
 		$this->load->vars('failed', $failed);							
-		$this->load->vars('cases', $cases);							
+		$this->load->vars('cases', $cases);	
+		$this->load->vars('all_cases', $all_cases);						
 		$this->load->view('unit/index');
 	}
 
@@ -59,5 +69,20 @@ class Unit extends CI_Controller
 	{
 		$this->output->set_content_type('text/javascript');		
 		$this->output->set_output(file_get_contents(APPPATH.'third_party/unit/javascript/'.$file));	
+	}
+	
+	public function api_all_cases()
+	{
+		$this->load->helper('unit');
+		
+		$cases = array();
+		
+		foreach(unit_test_cases() as $case)
+		{
+			$cases[] = $case['class'];
+		}
+				
+		$this->output->set_content_type('text/json');		
+		$this->output->set_output(json_encode($cases));
 	}
 }
