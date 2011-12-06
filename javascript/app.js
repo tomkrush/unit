@@ -4,6 +4,18 @@ $(function() {
 		return false;
 	});
 	
+	$('.filter select').bind('change', function() {
+		$('.case').hide();
+		var value = $(this).val();
+		
+		if ( value == '0' ) {
+			$('.case').show();
+		} else {
+			$('.case').hide();
+			$('.case[ref='+$(this).val()+']').show();
+		}
+	});
+	
 	$('.refresh').live('click', function() {
 		var url = $(this).data('url');
 		var test_case = $(this).parent().parent();

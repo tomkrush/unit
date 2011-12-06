@@ -15,11 +15,10 @@
 				<div class="stats">Total: <strong><?=$passed + $failed?></strong></div>
 				<div class="stats">Passed: <strong><?=$passed?></strong></div>
 				<div class="stats">Failed: <strong><?=$failed?></strong></div>
-<!--				
+				
 				<div class="filter">
-					<?=form_dropdown('cases', $all_cases)?>
-					<input type="submit" value="Run" />
-				</div>-->
+					<?=form_dropdown('cases', array(0=>'Show All')+$all_cases)?>
+				</div>
 			</div>
 		</div>
 		<div class="cases">

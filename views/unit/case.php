@@ -1,4 +1,4 @@
-<div class="case">
+<div class="case" ref="<?=$case['name']?>">
 	<div class="header">
 		<h3><?=$case['name']?></h3>
 		<a href="#" class="refresh" data-url="<?=site_url('unit/api/refresh?case='.$case['name'])?>">Refresh</a>

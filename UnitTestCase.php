@@ -171,6 +171,8 @@ abstract class UnitTestCase
 	
 	public function run()
 	{
+		$this->end_console();
+		
 		$array = get_class_methods($this);
 		
 		$array = array_filter($array, array($this, 'is_test'));
